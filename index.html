@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habtamu's Science - World Explorer</title>
+    <style>
+        :root {
+            --science-blue: #0984e3;
+            --science-green: #00b894;
+            --science-purple: #6c5ce7;
+            --lab-bg: #dfe6e9;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(120deg, #81ecec 0%, #74b9ff 100%);
+            margin: 0;
+            padding: 20px;
+            transition: all 0.5s ease;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        /* Branding Header */
+        header {
+            background: white;
+            padding: 30px;
+            border-radius: 40px;
+            box-shadow: 0 15px 0px #0984e3;
+            margin-bottom: 40px;
+            border: 5px solid #2d3436;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            color: var(--science-purple);
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #636e72;
+            font-weight: bold;
+        }
+
+        /* Lab Controls */
+        .lab-station {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .search-input {
+            padding: 15px 30px;
+            width: 350px;
+            border-radius: 50px;
+            border: 4px solid var(--science-purple);
+            font-size: 1.2rem;
+            outline: none;
+        }
+
+        button {
+            padding: 15px 30px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            color: white;
+            transition: 0.2s;
+            box-shadow: 0 6px 0px rgba(0,0,0,0.2);
+        }
+
+        button:active { transform: translateY(4px); box-shadow: none; }
+
+        .btn-teleport { background: #ff7675; }
+        .btn-theme { background: #fdcb6e; color: #2d3436; }
+
+        .counter-box {
+            background: #2d3436;
+            color: #55efc4;
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 15px;
+            margin-top: 10px;
+            font-family: monospace;
+            font-size: 1.2rem;
+        }
+
+        /* Discovery Cards */
+        #grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 30px;
+            padding: 30px;
+            border: 4px solid #2d3436;
+            box-shadow: 10px 10px 0px var(--science-green);
+            transition: 0.3s;
+        }
+
+        .card:hover { transform: scale(1.03); }
+
+        .flag-circle {
+            font-size: 4rem;
+            background: #f1f2f6;
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            border: 3px solid #dfe6e9;
+        }
+
+        .coords-display {
+            background: #ffeaa7;
+            padding: 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin: 15px 0;
+            color: #d35400;
+        }
+
+        .visit-btn {
+            background: var(--science-blue);
+            width: 100%;
+        }
+
+        /* Magic Lab Theme */
+        .dark-lab {
+            background: #2d3436;
+        }
+        .dark-lab header { background: #636e72; border-color: #55efc4; box-shadow: 0 15px 0px #00b894; }
+        .dark-lab h1 { color: #55efc4; }
+    </style>
+</head>
+<body id="labBody">
+
+<div class="container">
+    <header>
+        <h1>Habtamu's Science 🔬</h1>
+        <div class="subtitle">Global Geography Discovery Lab</div>
+        <div class="counter-box">Counties Discovered: <span id="count">0</span></div>
+    </header>
+
+    <div class="lab-station">
+        <input type="text" id="search" class="search-input" placeholder="Find a country to study..." onkeyup="searchLab()">
+        <button class="btn-teleport" onclick="randomExplore()">🚀 Random Teleport</button>
+        <button class="btn-theme" onclick="toggleLabTheme()">🌈 Toggle Magic Background</button>
+    </div>
+
+    <div id="grid"></div>
+</div>
+
+<script>
+    const database = [
+        { name: "Ethiopia", flag: "🇪🇹", city: "Addis Ababa", lat: "3°N - 15°N", long: "33°E - 48°E", fact: "Ethiopia has its own unique calendar with 13 months!" },
+        { name: "Kenya", flag: "🇰🇪", city: "Nairobi", lat: "5°S - 5°N", long: "34°E - 42°E", fact: "The Great Rift Valley runs right through the middle of Kenya!" },
+        { name: "Japan", flag: "🇯🇵", city: "Tokyo", lat: "20°N - 45°N", long: "122°E - 153°E", fact: "Japan has over 5.5 million vending machines!" },
+        { name: "Brazil", flag: "🇧🇷", city: "Brasília", lat: "5°N - 34°S", long: "34°W - 74°W", fact: "Brazil is the only country in the Americas that speaks Portuguese!" },
+        { name: "Norway", flag: "🇳🇴", city: "Oslo", lat: "57°N - 71°N", long: "4°E - 31°E", fact: "In the summer, the sun never sets in parts of Norway!" },
+        { name: "Egypt", flag: "🇪🇬", city: "Cairo", lat: "22°N - 31°N", long: "25°E - 35°E", fact: "The Great Pyramid of Giza was the tallest building for 3,800 years!" },
+        { name: "Australia", flag: "🇦🇺", city: "Canberra", lat: "10°S - 39°S", long: "113°E - 153°E", fact: "Australia is both a country and a whole continent!" },
+        { name: "Canada", flag: "🇨🇦", city: "Ottawa", lat: "41°N - 83°N", long: "52°W - 141°W", fact: "Canada is the second largest country in the world by area!" },
+        { name: "Madagascar", flag: "🇲🇬", city: "Antananarivo", lat: "12°S - 26°S", long: "43°E - 51°E", fact: "Madagascar is known as the 'Eighth Continent' because its nature is so unique!" },
+        { name: "India", flag: "🇮🇳", city: "New Delhi", lat: "8°N - 37°N", long: "68°E - 97°E", fact: "India has the largest postal system in the world!" }
+    ];
+
+    let discoveredCount = 0;
+    const discoveredList = new Set();
+
+    function updateGrid(items) {
+        const grid = document.getElementById('grid');
+        grid.innerHTML = items.map(c => `
+            <div class="card">
+                <div class="flag-circle">${c.flag}</div>
+                <h2>${c.name}</h2>
+                <p><strong>🏙️ Main City:</strong> ${c.city}</p>
+                <div class="coords-display">
+                    LAT: ${c.lat}<br>LONG: ${c.long}
+                </div>
+                <button class="visit-btn" onclick="openFact('${c.name}', '${c.fact}')">📖 Learn Science Fact</button>
+            </div>
+        `).join('');
+    }
+
+    function searchLab() {
+        const val = document.getElementById('search').value.toLowerCase();
+        const filtered = database.filter(c => c.name.toLowerCase().includes(val));
+        updateGrid(filtered);
+    }
+
+    function openFact(name, fact) {
+        alert("🔬 HABTAMU'S SCIENCE FACT for " + name + ":\n\n" + fact);
+        if (!discoveredList.has(name)) {
+            discoveredList.add(name);
+            discoveredCount++;
+            document.getElementById('count').innerText = discoveredCount;
+        }
+    }
+
+    function toggleLabTheme() {
+        document.getElementById('labBody').classList.toggle('dark-lab');
+    }
+
+    function randomExplore() {
+        const r = database[Math.floor(Math.random() * database.length)];
+        document.getElementById('search').value = r.name;
+        searchLab();
+    }
+
+    // Initialize the lab
+    updateGrid(database);
+</script>
+
+</body>
+</html>
