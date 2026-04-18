@@ -167,20 +167,54 @@
 </div>
 
 <script>
-    const database = [
-        { name: "Ethiopia", flag: "🇪🇹", city: "Addis Ababa", lat: "3°N - 15°N", long: "33°E - 48°E", fact: "Ethiopia has its own unique calendar with 13 months!" },
-        { name: "Kenya", flag: "🇰🇪", city: "Nairobi", lat: "5°S - 5°N", long: "34°E - 42°E", fact: "The Great Rift Valley runs right through the middle of Kenya!" },
-        { name: "Japan", flag: "🇯🇵", city: "Tokyo", lat: "20°N - 45°N", long: "122°E - 153°E", fact: "Japan has over 5.5 million vending machines!" },
-        { name: "Brazil", flag: "🇧🇷", city: "Brasília", lat: "5°N - 34°S", long: "34°W - 74°W", fact: "Brazil is the only country in the Americas that speaks Portuguese!" },
-        { name: "Norway", flag: "🇳🇴", city: "Oslo", lat: "57°N - 71°N", long: "4°E - 31°E", fact: "In the summer, the sun never sets in parts of Norway!" },
-        { name: "Egypt", flag: "🇪🇬", city: "Cairo", lat: "22°N - 31°N", long: "25°E - 35°E", fact: "The Great Pyramid of Giza was the tallest building for 3,800 years!" },
-        { name: "Australia", flag: "🇦🇺", city: "Canberra", lat: "10°S - 39°S", long: "113°E - 153°E", fact: "Australia is both a country and a whole continent!" },
-        { name: "Canada", flag: "🇨🇦", city: "Ottawa", lat: "41°N - 83°N", long: "52°W - 141°W", fact: "Canada is the second largest country in the world by area!" },
-        { name: "Madagascar", flag: "🇲🇬", city: "Antananarivo", lat: "12°S - 26°S", long: "43°E - 51°E", fact: "Madagascar is known as the 'Eighth Continent' because its nature is so unique!" },
-        { name: "India", flag: "🇮🇳", city: "New Delhi", lat: "8°N - 37°N", long: "68°E - 97°E", fact: "India has the largest postal system in the world!" }
+    <script>
+    const countries = [
+         const countries = [
+        // --- EAST AFRICA ---
+        { name: "Ethiopia", flag: "🇪🇹", city: "Addis Ababa", lat: "3°N - 15°N", long: "33°E - 48°E", fact: "It is the only country in Africa that was never colonized!" },
+        { name: "Kenya", flag: "🇰🇪", city: "Nairobi", lat: "5°S - 5°N", long: "34°E - 42°E", fact: "Home to the world's fastest runners and beautiful lions!" },
+        { name: "Tanzania", flag: "🇹🇿", city: "Dodoma", lat: "1°S - 12°S", long: "29°E - 40°E", fact: "Mount Kilimanjaro is the tallest free-standing mountain in the world!" },
+        { name: "Uganda", flag: "🇺🇬", city: "Kampala", lat: "1°S - 4°N", long: "29°E - 35°E", fact: "It is known as the 'Pearl of Africa' because of its beauty." },
+        { name: "Madagascar", flag: "🇲🇬", city: "Antananarivo", lat: "12°S - 26°S", long: "43°E - 51°E", fact: "90% of the wildlife here is found nowhere else on Earth!" },
+        { name: "Mauritius", flag: "🇲🇺", city: "Port Louis", lat: "19°S - 21°S", long: "57°E - 58°E", fact: "It was once the only home of the Dodo bird!" },
+        { name: "Rwanda", flag: "🇷🇼", city: "Kigali", lat: "1°S - 3°S", long: "28°E - 31°E", fact: "It is one of the cleanest countries in the world!" },
+        
+        // --- REST OF AFRICA ---
+        { name: "Egypt", flag: "🇪🇬", city: "Cairo", lat: "22°N - 31°N", long: "25°E - 35°E", fact: "Ancient Egyptians invented the 365-day calendar!" },
+        { name: "Nigeria", flag: "🇳🇬", city: "Abuja", lat: "4°N - 14°N", long: "3°E - 15°E", fact: "It is the most populous country in Africa!" },
+        { name: "South Africa", flag: "🇿🇦", city: "Pretoria", lat: "22°S - 35°S", long: "16°E - 33°E", fact: "It has 11 official languages!" },
+        { name: "Morocco", flag: "🇲🇦", city: "Rabat", lat: "27°N - 36°N", long: "1°W - 13°W", fact: "It has the oldest continuously operating university in the world!" },
+        { name: "Ghana", flag: "🇬🇭", city: "Accra", lat: "4°N - 11°N", long: "3°W - 1°E", fact: "It was the first country in sub-Saharan Africa to gain independence." },
+
+        // --- ASIA ---
+        { name: "Japan", flag: "🇯🇵", city: "Tokyo", lat: "20°N - 45°N", long: "122°E - 153°E", fact: "Japan has the highest number of centenarians (people over 100)!" },
+        { name: "India", flag: "🇮🇳", city: "New Delhi", lat: "8°N - 37°N", long: "68°E - 97°E", fact: "India is the place where Chess was invented!" },
+        { name: "China", flag: "🇨🇳", city: "Beijing", lat: "18°N - 54°N", long: "73°E - 135°E", fact: "Paper and silk were both invented in China!" },
+        { name: "South Korea", flag: "🇰🇷", city: "Seoul", lat: "33°N - 38°N", long: "124°E - 130°E", fact: "The world's first metal printing press was made here!" },
+        { name: "Indonesia", flag: "🇮🇩", city: "Jakarta", lat: "11°S - 6°N", long: "95°E - 141°E", fact: "It is made up of over 17,000 islands!" },
+
+        // --- AMERICAS ---
+        { name: "USA", flag: "🇺🇸", city: "Washington D.C.", lat: "24°N - 49°N", long: "66°W - 125°W", fact: "The moon landing was controlled from the USA!" },
+        { name: "Brazil", flag: "🇧🇷", city: "Brasília", lat: "5°N - 34°S", long: "34°W - 74°W", fact: "The Amazon River carries more water than any other river!" },
+        { name: "Canada", flag: "🇨🇦", city: "Ottawa", lat: "41°N - 83°N", long: "52°W - 141°W", fact: "Basketball was invented by a Canadian teacher!" },
+        { name: "Mexico", flag: "🇲🇽", city: "Mexico City", lat: "14°N - 33°N", long: "86°W - 118°W", fact: "The world's largest pyramid is actually in Mexico, not Egypt!" },
+        { name: "Argentina", flag: "🇦🇷", city: "Buenos Aires", lat: "21°S - 55°S", long: "53°W - 74°W", fact: "It is home to the world's highest dinosaur fossils!" },
+
+        // --- EUROPE ---
+        { name: "France", flag: "🇫🇷", city: "Paris", lat: "41°N - 51°N", long: "5°W - 9°E", fact: "The Eiffel Tower was originally intended to be temporary!" },
+        { name: "Germany", flag: "🇩🇪", city: "Berlin", lat: "47°N - 55°N", long: "5°E - 15°E", fact: "It has over 20,000 castles!" },
+        { name: "United Kingdom", flag: "🇬🇧", city: "London", lat: "49°N - 61°N", long: "8°W - 2°E", fact: "The world's first public railway was built here!" },
+        { name: "Italy", flag: "🇮🇹", city: "Rome", lat: "35°N - 47°N", long: "6°E - 19°E", fact: "Italy has the most UNESCO World Heritage Sites in the world!" },
+        { name: "Greece", flag: "🇬🇷", city: "Athens", lat: "34°N - 42°N", long: "19°E - 29°E", fact: "The first Olympic Games were held here in 776 BC!" },
+
+        // --- OCEANIA ---
+        { name: "Australia", flag: "🇦🇺", city: "Canberra", lat: "10°S - 39°S", long: "113°E - 153°E", fact: "It is the only continent that is also a single country!" },
+        { name: "New Zealand", flag: "🇳🇿", city: "Wellington", lat: "34°S - 47°S", long: "166°E - 179°E", fact: "It was the first country to let women vote!" }
+    ]; 
+    
     ];
 
-    let discoveredCount = 0;
+    let studiedCount = 0
     const discoveredList = new Set();
 
     function updateGrid(items) {
